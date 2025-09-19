@@ -110,6 +110,9 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('You have pushed the button this many times:', style:TextStyle(fontSize:myFontSize)),
+
+            Image.asset("images/algonquin.jpg", height:300, width:300),
+
             Text(
               '$_counter',
               style:TextStyle(fontSize:myFontSize),
