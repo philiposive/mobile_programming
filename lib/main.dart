@@ -54,36 +54,25 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var _counter = 0.0;
   var myFontSize = 30.0;
   var isChecked = false;
-  late TextEditingController _controller;
+  late TextEditingController login;
+  late TextEditingController password;
+  var fileToShow = "images/question_mark.png";
+  var labelToShow = "question mark";
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
+    login = TextEditingController();
+    password = TextEditingController();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-
-      //if(_counter <= 99.0) {
-        _counter++;
-      //  myFontSize++;
-      //}
-    });
+    login.dispose();
+    password.dispose();
   }
 
   @override
@@ -124,64 +113,57 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             
-            Padding(padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+            //Padding(padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
             
-            child:Text('You have typed: ${_controller.value.text}', style:TextStyle(fontSize:myFontSize))),
+            //child:Text('You have typed: ${_controller.value.text}', style:TextStyle(fontSize:myFontSize))),
 
-            Semantics(child:Image.asset("images/algonquin.jpg", height:100, width:100),
-                label:'Algonquin College Logo'),
-            
+            //Semantics(child:Image.asset("images/algonquin.jpg", height:100, width:100),
+            //    label:'Algonquin College Logo'),
+
+            Padding(child:
+            TextField(controller: login,
+                decoration:
+                InputDecoration(border: OutlineInputBorder(),
+                    hintText: 'Login')),
+                padding: EdgeInsets.fromLTRB(50, 0, 50, 0)),
+
+            Padding(child:
+            TextField(controller: password,
+                obscureText: true,
+                decoration:
+                InputDecoration(border: OutlineInputBorder(),
+                    hintText: 'Password')),
+                padding: EdgeInsets.fromLTRB(50, 0, 50, 0)),
+
             //ElevatedButton(onPressed: buttonClicked, child: Text("Click me")),
             ElevatedButton(onPressed: () {
               setState(() {
-                var txt = _controller.value.text;
-                _controller.text = "See your text above:";
+                var txt = password.value.text;
+                setState(() {
+                  if(txt == 'QWERTY123') {
+                    fileToShow = "images/light_bulb.png"; labelToShow = "light bulb";
+                  }
+                  else {
+                    fileToShow = "images/stop.png";
+                    labelToShow = "stop sign";
+                  }
+                });
               });
-            }, child: Image.asset("images/algonquin.jpg", height:100, width:100)),
+            },
+              child: Text('Login', style:TextStyle(fontSize: myFontSize, color: Colors.blue))),
 
-            Text(
-              '$_counter',
-              style:TextStyle(fontSize:myFontSize),
-            ),
-            Slider(value:_counter, onChanged:setNewValue, min:0, max:100),
-            
-            Checkbox(value: isChecked, onChanged: (newChecked) {
-              setState(() {
-                if(newChecked != null)
-                  isChecked = newChecked;
-                //isChecked = newChecked !;
-              });
+            Semantics(child: Padding(padding:EdgeInsets.fromLTRB(0, 50, 0, 0),
+                child: Image.asset(fileToShow, height:300, width:300)), label: labelToShow),
 
-            }),
-            
-            Switch(value: isChecked, onChanged: (newChecked) {
-
-              setState(() {
-                if(newChecked != null)
-                  isChecked = newChecked;
-                //isChecked = newChecked !;
-              });
-    }),
-            Padding(child:
-            TextField(controller: _controller, decoration:
-            InputDecoration(border: OutlineInputBorder(), hintText:"Put your name here",
-                labelText: "First Name")),
-              padding: EdgeInsets.fromLTRB(50, 0, 50, 0))
-            
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
   void setNewValue(double num){
 
     setState(() {
-      _counter = num;
       myFontSize = num;
     });
 
