@@ -56,6 +56,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var _counter = 0.0;
   var myFontSize = 30.0;
+  var isChecked = false;
 
   void _incrementCounter() {
     setState(() {
@@ -109,9 +110,13 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('You have pushed the button this many times:', style:TextStyle(fontSize:myFontSize)),
+            
+            Padding(padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+            
+            child:Text('You have pushed the button this many times:', style:TextStyle(fontSize:myFontSize))),
 
-            Image.asset("images/algonquin.jpg", height:300, width:300),
+            Semantics(child:Image.asset("images/algonquin.jpg", height:300, width:300),
+                label:'Algonquin College Logo'),
             
             //ElevatedButton(onPressed: buttonClicked, child: Text("Click me")),
             ElevatedButton(onPressed: () {}, child: Image.asset("images/algonquin.jpg", height:100, width:100)),
@@ -120,7 +125,16 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style:TextStyle(fontSize:myFontSize),
             ),
-            Slider(value:_counter, onChanged:setNewValue, min:0, max:100)
+            Slider(value:_counter, onChanged:setNewValue, min:0, max:100),
+            
+            Checkbox(value: isChecked, onChanged: (newChecked) {
+              setState(() {
+                if(newChecked != null)
+                  isChecked = newChecked;
+                //isChecked = newChecked !;
+              });
+
+            })
           ],
         ),
       ),
