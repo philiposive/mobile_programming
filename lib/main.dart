@@ -79,10 +79,10 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
 
-      //if(_counter <= 99.0) {
+      if(_counter <= 99.0) {
         _counter++;
-      //  myFontSize++;
-      //}
+      myFontSize++;
+      }
     });
   }
 
@@ -163,7 +163,9 @@ class _MyHomePageState extends State<MyHomePage> {
               });
     }),
             Padding(child:
-            TextField(controller: _controller, decoration:
+            TextField(controller: _controller,
+                obscureText: true,
+                decoration:
             InputDecoration(border: OutlineInputBorder(), hintText:"Put your name here",
                 labelText: "First Name")),
               padding: EdgeInsets.fromLTRB(50, 0, 50, 0))
