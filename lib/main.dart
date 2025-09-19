@@ -134,7 +134,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 //isChecked = newChecked !;
               });
 
-            })
+            }),
+            
+            Switch(value: isChecked, onChanged: (newChecked) {
+
+              setState(() {
+                if(newChecked != null)
+                  isChecked = newChecked;
+                //isChecked = newChecked !;
+              });
+    })
+            
           ],
         ),
       ),
