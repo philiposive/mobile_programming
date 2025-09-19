@@ -57,6 +57,19 @@ class _MyHomePageState extends State<MyHomePage> {
   var _counter = 0.0;
   var myFontSize = 30.0;
   var isChecked = false;
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -113,13 +126,18 @@ class _MyHomePageState extends State<MyHomePage> {
             
             Padding(padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
             
-            child:Text('You have pushed the button this many times:', style:TextStyle(fontSize:myFontSize))),
+            child:Text('You have typed: ${_controller.value.text}', style:TextStyle(fontSize:myFontSize))),
 
-            Semantics(child:Image.asset("images/algonquin.jpg", height:300, width:300),
+            Semantics(child:Image.asset("images/algonquin.jpg", height:100, width:100),
                 label:'Algonquin College Logo'),
             
             //ElevatedButton(onPressed: buttonClicked, child: Text("Click me")),
-            ElevatedButton(onPressed: () {}, child: Image.asset("images/algonquin.jpg", height:100, width:100)),
+            ElevatedButton(onPressed: () {
+              setState(() {
+                var txt = _controller.value.text;
+                _controller.text = "See your text above:";
+              });
+            }, child: Image.asset("images/algonquin.jpg", height:100, width:100)),
 
             Text(
               '$_counter',
@@ -143,7 +161,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   isChecked = newChecked;
                 //isChecked = newChecked !;
               });
-    })
+    }),
+            Padding(child:
+            TextField(controller: _controller, decoration:
+            InputDecoration(border: OutlineInputBorder(), hintText:"Put your name here",
+                labelText: "First Name")),
+              padding: EdgeInsets.fromLTRB(50, 0, 50, 0))
             
           ],
         ),
