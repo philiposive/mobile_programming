@@ -112,6 +112,9 @@ class _MyHomePageState extends State<MyHomePage> {
             Text('You have pushed the button this many times:', style:TextStyle(fontSize:myFontSize)),
 
             Image.asset("images/algonquin.jpg", height:300, width:300),
+            
+            //ElevatedButton(onPressed: buttonClicked, child: Text("Click me")),
+            ElevatedButton(onPressed: () {}, child: Image.asset("images/algonquin.jpg", height:100, width:100)),
 
             Text(
               '$_counter',
@@ -136,4 +139,9 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
   }
+
+  void buttonClicked(){
+
+  }
+
 }
