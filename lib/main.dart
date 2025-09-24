@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false, //this hides the debug banner
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -84,76 +85,58 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (itemIndex){
+          if(itemIndex == 0)
+            {
+              //you clicked "Camera"
+            }
+          if(itemIndex == 1)
+          {
+            //you clicked "Phone"
+          }
+        },
+          items: [
+        BottomNavigationBarItem( icon: Icon(Icons.camera), label: 'Camera'  ),
+        BottomNavigationBarItem( icon: Icon(Icons.add_call), label: 'Phone' ),
+      ]),
+
+      drawer: Column(
+
+          children: [
+        Text("page 1", style: TextStyle(backgroundColor: Colors.white),),
+        Text("Page 2", style: TextStyle(backgroundColor: Colors.white),)
+
+      ]),
+
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
+        actions: [
+          OutlinedButton(onPressed: (){ }, child: Image.asset("images/stop.png")),
+          OutlinedButton(onPressed: (){ }, child: Text("Exit"))],
+
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text("Put anything here"),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             
+            ElevatedButton(child: Text("Button 1"), onPressed: () { }),
+            ElevatedButton(child: Text("Button 2"), onPressed: () { }),
+            ElevatedButton(child: Text("Button 3"), onPressed: () { }),
+            ElevatedButton(child: Text("Button 4"), onPressed: () { }),
+            ElevatedButton(child: Text("Button 5"), onPressed: () { }),
             //Padding(padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
             
             //child:Text('You have typed: ${_controller.value.text}', style:TextStyle(fontSize:myFontSize))),
 
             //Semantics(child:Image.asset("images/algonquin.jpg", height:100, width:100),
             //    label:'Algonquin College Logo'),
-
-            Padding(child:
-            TextField(controller: login,
-                decoration:
-                InputDecoration(border: OutlineInputBorder(),
-                    hintText: 'Login')),
-                padding: EdgeInsets.fromLTRB(50, 0, 50, 0)),
-
-            Padding(child:
-            TextField(controller: password,
-                obscureText: true,
-                decoration:
-                InputDecoration(border: OutlineInputBorder(),
-                    hintText: 'Password')),
-                padding: EdgeInsets.fromLTRB(50, 0, 50, 0)),
-
-            //ElevatedButton(onPressed: buttonClicked, child: Text("Click me")),
-            ElevatedButton(onPressed: () {
-              setState(() {
-                var txt = password.value.text;
-                setState(() {
-                  if(txt == 'QWERTY123') {
-                    fileToShow = "images/light_bulb.png"; labelToShow = "light bulb";
-                  }
-                  else {
-                    fileToShow = "images/stop.png";
-                    labelToShow = "stop sign";
-                  }
-                });
-              });
-            },
-              child: Text('Login', style:TextStyle(fontSize: myFontSize, color: Colors.blue))),
-
-            Semantics(child: Padding(padding:EdgeInsets.fromLTRB(0, 50, 0, 0),
-                child: Image.asset(fileToShow, height:300, width:300)), label: labelToShow),
 
           ],
         ),
