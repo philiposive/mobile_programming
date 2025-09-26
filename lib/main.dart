@@ -85,62 +85,195 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (itemIndex){
-          if(itemIndex == 0)
-            {
-              //you clicked "Camera"
-            }
-          if(itemIndex == 1)
-          {
-            //you clicked "Phone"
-          }
-        },
-          items: [
-        BottomNavigationBarItem( icon: Icon(Icons.camera), label: 'Camera'  ),
-        BottomNavigationBarItem( icon: Icon(Icons.add_call), label: 'Phone' ),
-      ]),
 
-      drawer: Column(
-
-          children: [
-        Text("page 1", style: TextStyle(backgroundColor: Colors.white),),
-        Text("Page 2", style: TextStyle(backgroundColor: Colors.white),)
-
-      ]),
-
-      appBar: AppBar(
-        actions: [
-          OutlinedButton(onPressed: (){ }, child: Image.asset("images/stop.png")),
-          OutlinedButton(onPressed: (){ }, child: Text("Exit"))],
-
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text("Put anything here"),
-      ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child:
+
+        Padding(padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+
+        child:
+
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            
-            ElevatedButton(child: Text("Button 1"), onPressed: () { }),
-            ElevatedButton(child: Text("Button 2"), onPressed: () { }),
-            ElevatedButton(child: Text("Button 3"), onPressed: () { }),
-            ElevatedButton(child: Text("Button 4"), onPressed: () { }),
-            ElevatedButton(child: Text("Button 5"), onPressed: () { }),
+
+            Text("BROWSE CATEGORIES", style: TextStyle(fontSize: 30.0, color: Colors.black),),
+
+            SizedBox(height: 10),
+
+            Row(mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text("Not sure about exactly which recipe you're looking for? Do a search, or dive into our most popular categories.", style: TextStyle(fontSize: 15.0, color: Colors.black),
+            ),
+          ],
+            ),
+
+            SizedBox(height: 10),
+
+            Text("BY MEAT", style: TextStyle(fontSize: 25.0, color: Colors.black),),
+
+            SizedBox(height: 5),
+
+            Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+
+                Stack(
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      CircleAvatar(
+                          backgroundImage: AssetImage('images/beef.jpg'),
+                          radius:50),
+                      Text("Beef", style: TextStyle(fontSize: 20.0, color: Colors.white),)
+                  ],
+                ),
+
+                Stack(
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      CircleAvatar(
+                          backgroundImage: AssetImage('images/chicken.jpg'),
+                          radius:50),
+                      Text("Chicken", style: TextStyle(fontSize: 20.0, color: Colors.white),)
+                  ],
+                ),
+
+                Stack(
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      CircleAvatar(
+                          backgroundImage: AssetImage('images/pork.jpg'),
+                          radius:50),
+                      Text("Pork", style: TextStyle(fontSize: 20.0, color: Colors.white),)
+                  ],
+                ),
+
+                Stack(
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      CircleAvatar(
+                          backgroundImage: AssetImage('images/seafood.jpg'),
+                          radius:50),
+                      Text("Seafood", style: TextStyle(fontSize: 20.0, color: Colors.white),)
+                  ],
+                ),
+              ],
+            ),
+
+            SizedBox(height: 10),
+
+            Text("BY COURSE", style: TextStyle(fontSize: 25.0, color: Colors.black),),
+
+            SizedBox(height: 5),
+
+            Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+
+                Stack(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    children: [
+                      CircleAvatar(
+                          backgroundImage: AssetImage('images/main.jpg'),
+                          radius:50),
+                      Text("Main Dishes", style: TextStyle(fontSize: 20.0, color: Colors.black),)
+                  ],
+                ),
+
+                Stack(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    children: [
+                      CircleAvatar(
+                          backgroundImage: AssetImage('images/salad.jpg'),
+                          radius:50),
+                      Text("Salad Recipes", style: TextStyle(fontSize: 20.0, color: Colors.black),)
+                  ],
+                ),
+
+                Stack(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    children: [
+                      CircleAvatar(
+                          backgroundImage: AssetImage('images/side.jpg'),
+                          radius:50),
+                      Text("Side Dishes", style: TextStyle(fontSize: 20.0, color: Colors.black),)
+                  ],
+                ),
+
+                Stack(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    children: [
+                      CircleAvatar(
+                          backgroundImage: AssetImage('images/pot.jpg'),
+                          radius:50),
+                      Text("Crockpot", style: TextStyle(fontSize: 20.0, color: Colors.black),)
+                  ],
+                ),
+              ],
+            ),
+
+            SizedBox(height: 10),
+
+            Text("BY DESSERT", style: TextStyle(fontSize: 25.0, color: Colors.black),),
+
+            SizedBox(height: 5),
+
+            Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+
+                Stack(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    children: [
+                      CircleAvatar(
+                          backgroundImage: AssetImage('images/icecream.jpg'),
+                          radius:50),
+                      Text("Ice Cream", style: TextStyle(fontSize: 20.0, color: Colors.black),)
+                  ],
+                ),
+
+                Stack(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    children: [
+                      CircleAvatar(
+                          backgroundImage: AssetImage('images/brownie.jpg'),
+                          radius:50),
+                      Text("Brownies", style: TextStyle(fontSize: 20.0, color: Colors.black),)
+                  ],
+                ),
+
+                Stack(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    children: [
+                      CircleAvatar(
+                          backgroundImage: AssetImage('images/pie.jpg'),
+                          radius:50),
+                      Text("Pies", style: TextStyle(fontSize: 20.0, color: Colors.black),)
+                  ],
+                ),
+
+                Stack(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    children: [
+                      CircleAvatar(
+                          backgroundImage: AssetImage('images/cookie.jpg'),
+                          radius:50),
+                      Text("Cookies", style: TextStyle(fontSize: 20.0, color: Colors.black),)
+                  ],
+                ),
+              ],
+            ),
+
+    ])
             //Padding(padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
             
             //child:Text('You have typed: ${_controller.value.text}', style:TextStyle(fontSize:myFontSize))),
 
             //Semantics(child:Image.asset("images/algonquin.jpg", height:100, width:100),
             //    label:'Algonquin College Logo'),
-
-          ],
         ),
-      ),
+      )
     );
   }
 
