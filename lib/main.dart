@@ -101,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
           //mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
 
-            Text("BROWSE CATEGORIES", style: TextStyle(fontSize: 30.0, color: Colors.black),),
+            Text("BROWSE CATEGORIES", style: TextStyle(fontSize: 30.0, color: Colors.black, fontWeight: FontWeight.bold),),
 
             SizedBox(height: 10),
 
@@ -114,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
             SizedBox(height: 10),
 
-            Text("BY MEAT", style: TextStyle(fontSize: 25.0, color: Colors.black),),
+            Text("BY MEAT", style: TextStyle(fontSize: 25.0, color: Colors.black, fontWeight: FontWeight.bold),),
 
             SizedBox(height: 5),
 
@@ -165,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
             SizedBox(height: 10),
 
-            Text("BY COURSE", style: TextStyle(fontSize: 25.0, color: Colors.black),),
+            Text("BY COURSE", style: TextStyle(fontSize: 25.0, color: Colors.black, fontWeight: FontWeight.bold),),
 
             SizedBox(height: 5),
 
@@ -216,7 +216,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
             SizedBox(height: 10),
 
-            Text("BY DESSERT", style: TextStyle(fontSize: 25.0, color: Colors.black),),
+            Text("BY DESSERT", style: TextStyle(fontSize: 25.0, color: Colors.black, fontWeight: FontWeight.bold),),
 
             SizedBox(height: 5),
 
