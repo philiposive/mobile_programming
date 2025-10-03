@@ -1,4 +1,6 @@
+import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -63,6 +65,24 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     _controller = TextEditingController();
+
+    Future.delayed(Duration.zero, () {
+
+      //this is the snackbar
+      var snackBar = SnackBar(
+        content: Text('Do you want to reload your string?'),
+        action: SnackBarAction(label: "Yes please",
+            onPressed: () {
+              //load from disk:
+              loadPreferences();
+            }),
+      );
+
+      //this displays the snackbar
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+    });
+      //code to run later
   }
 
   @override
@@ -133,10 +153,30 @@ class _MyHomePageState extends State<MyHomePage> {
             
             //ElevatedButton(onPressed: buttonClicked, child: Text("Click me")),
             ElevatedButton(onPressed: () {
-              setState(() {
-                var txt = _controller.value.text;
-                _controller.text = "See your text above:";
-              });
+
+              showDialog<String>(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                      title: Text("Alert!!"),
+                      content: Text("Do you really want to save your text?"),
+                      actions: [
+                        OutlinedButton(onPressed:
+                            () async
+                        {
+                          var prefs = EncryptedSharedPreferences();//await SharedPreferences.getInstance(); //async, must wait
+                          //Key is the variable name        //what the user typed
+                            await prefs.setString("MySavedString", _controller.value.text);
+
+                            Navigator.pop(context); //free any memory from this alert dialog (buttons, text, etc.)
+                        }, child: Text("Yes")),
+                        OutlinedButton(onPressed: () {
+                          Navigator.pop(context);
+                        }, child: Text("No")),
+
+                      ]);
+                });
+
             }, child: Image.asset("images/algonquin.jpg", height:100, width:100)),
 
             Text(
@@ -164,7 +204,6 @@ class _MyHomePageState extends State<MyHomePage> {
     }),
             Padding(child:
             TextField(controller: _controller,
-                obscureText: true,
                 decoration:
             InputDecoration(border: OutlineInputBorder(), hintText:"Put your name here",
                 labelText: "First Name")),
@@ -173,11 +212,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      //floatingActionButton: FloatingActionButton(
+      //  onPressed: _incrementCounter,
+      //  tooltip: 'Increment',
+      //  child: const Icon(Icons.add),
+      //), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
   void setNewValue(double num){
@@ -192,5 +231,27 @@ class _MyHomePageState extends State<MyHomePage> {
   void buttonClicked(){
 
   }
+  //load this in a background thread
+  void loadPreferences( ) async //background thread
+  {
+    //start loading from disk, not async/but (await) before moving on
+    var prefs = EncryptedSharedPreferences();//await SharedPreferences.getInstance();
 
+    //Encrypted, this is async/read from pref:
+    var str = await prefs.getString("MySavedString"); //use the same variable as in setString()
+
+    //put back onto the page:
+    if(str != null)
+      _controller.text = str; //see the string on the page
+  }
+
+  void loadPreferences2() //not async
+  {
+    var prefs = EncryptedSharedPreferences();
+    prefs.getString("MySavedString").then((savedString){
+      if(savedString != null)
+        _controller.text = savedString; //see the string on the page
+      //prefs are all loaded
+    });
+  }
 }
