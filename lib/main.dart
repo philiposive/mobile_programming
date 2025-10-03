@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -58,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
   var isChecked = false;
   late TextEditingController login;
   late TextEditingController password;
-  var fileToShow = "images/question_mark.png";
+  //var fileToShow = "images/question_mark.png";
   var labelToShow = "question mark";
 
   @override
@@ -66,8 +67,34 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     login = TextEditingController();
     password = TextEditingController();
-  }
 
+    //void loadPreferences() async //background thread
+    //    {
+    Future.delayed(Duration.zero, () async {
+      //start loading from disk, not async/but (await) before moving on
+      var prefs = EncryptedSharedPreferences();
+
+      var log = await prefs.getString("MySavedLogin");
+      var pass = await prefs.getString("MySavedPassword");
+      //use the same variable as in setString()
+
+      //put back onto the page:
+      if (log.isNotEmpty)
+        login.text = log;
+      if (pass.isNotEmpty)
+        password.text = pass;
+
+      var snackBar = SnackBar(
+          content: Text('Previous data has been loaded')
+        //action: SnackBarAction(label: "Ok",
+        //    onPressed: () {
+        //load from disk:
+        //      loadPreferences();
+      );
+
+      if (pass.isNotEmpty) ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    });
+  }
   @override
   void dispose() {
     super.dispose();
@@ -88,7 +115,10 @@ class _MyHomePageState extends State<MyHomePage> {
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme
+            .of(context)
+            .colorScheme
+            .inversePrimary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
@@ -137,23 +167,60 @@ class _MyHomePageState extends State<MyHomePage> {
 
             //ElevatedButton(onPressed: buttonClicked, child: Text("Click me")),
             ElevatedButton(onPressed: () {
-              setState(() {
-                var txt = password.value.text;
-                setState(() {
-                  if(txt == 'QWERTY123') {
-                    fileToShow = "images/light_bulb.png"; labelToShow = "light bulb";
-                  }
-                  else {
-                    fileToShow = "images/stop.png";
-                    labelToShow = "stop sign";
-                  }
-                });
-              });
-            },
-                child: Text('Login', style:TextStyle(fontSize: myFontSize, color: Colors.blue))),
+              showDialog<String>(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                        title: Text("Attention"),
+                        content: Text(
+                            "Would you like to save your username and password?"),
+                        actions: [
 
-            Semantics(child: Padding(padding:EdgeInsets.fromLTRB(0, 50, 0, 0),
-                child: Image.asset(fileToShow, height:300, width:300)), label: labelToShow),
+                          OutlinedButton(onPressed:
+                              () async
+                          {
+
+                            var prefs = EncryptedSharedPreferences(); //await SharedPreferences.getInstance(); //async, must wait
+                            //Key is the variable name        //what the user typed
+
+                            await prefs.setString(
+                                "MySavedLogin", login.value.text);
+                            await prefs.setString(
+                                "MySavedPassword", password.value.text);
+
+                            Navigator.pop(
+                                context); //free any memory from this alert dialog (buttons, text, etc.)
+                          }, child: Text("Yes")),
+
+                          OutlinedButton(onPressed: () {
+                            var prefs = EncryptedSharedPreferences();
+                            prefs.clear();
+
+                            Navigator.pop(context);
+                          }, child: Text("No")),
+
+                        ]);
+                  });
+
+              //setState(() {
+              //  var txt = password.value.text;
+              //  setState(() {
+              //    if(txt == 'QWERTY123') {
+              //      fileToShow = "images/light_bulb.png"; labelToShow = "light bulb";
+              //    }
+              //    else {
+              //      fileToShow = "images/stop.png";
+              //      labelToShow = "stop sign";
+              //    }
+              //  });
+              //});
+            },
+                child: Text('Login', style: TextStyle(
+                    fontSize: myFontSize, color: Colors.blue))),
+
+            //Semantics(child: Padding(padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+            //    child: Image.asset(fileToShow, height: 300, width: 300)),
+            //    label: labelToShow),
 
           ],
         ),
@@ -161,16 +228,30 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void setNewValue(double num){
-
+  void setNewValue(double num) {
     setState(() {
       myFontSize = num;
     });
+  }
+
+  void buttonClicked() {
 
   }
 
-  void buttonClicked(){
+  //void loadPreferences() async //background thread
+  //    {
 
-  }
+    //start loading from disk, not async/but (await) before moving on
+  //  var prefs = EncryptedSharedPreferences();
 
+  //  var log = await prefs.getString("MySavedLogin");
+  //  var pass = await prefs.getString("MySavedPassword");
+    //use the same variable as in setString()
+
+    //put back onto the page:
+  //  if (log != null)
+  //    login.text = log;
+  //  if (pass != null)
+  //    password.text = pass;
+  //}
 }
