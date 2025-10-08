@@ -85,11 +85,10 @@ class _MyHomePageState extends State<MyHomePage> {
         password.text = pass;
 
       var snackBar = SnackBar(
-          content: Text('Previous data has been loaded')
-        //action: SnackBarAction(label: "Ok",
-        //    onPressed: () {
-        //load from disk:
-        //      loadPreferences();
+          content: Text('Previous data has been loaded'),
+          action: SnackBarAction(label: "Ok",
+              onPressed: () { }
+      )
       );
 
       if (pass.isNotEmpty) ScaffoldMessenger.of(context).showSnackBar(snackBar);
