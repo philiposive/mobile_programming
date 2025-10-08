@@ -168,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(onPressed: () {
               showDialog<String>(
                   context: context,
-                  builder: (context) {
+                  builder: (BuildContext context) {
                     return AlertDialog(
                         title: Text("Attention"),
                         content: Text(
@@ -187,8 +187,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             await prefs.setString(
                                 "MySavedPassword", password.value.text);
 
-                            Navigator.pop(
-                                context); //free any memory from this alert dialog (buttons, text, etc.)
+                            Navigator.pop(context); //free any memory from this alert dialog (buttons, text, etc.)
                           }, child: Text("Yes")),
 
                           OutlinedButton(onPressed: () {
