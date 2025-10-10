@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late TextEditingController login;
   late TextEditingController password;
   //var fileToShow = "images/question_mark.png";
-  var labelToShow = "question mark";
+  //var labelToShow = "question mark";
 
   @override
   void initState() {
@@ -79,9 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
       //use the same variable as in setString()
 
       //put back onto the page:
-      if (log.isNotEmpty)
+      if (log != null)
         login.text = log;
-      if (pass.isNotEmpty)
+      if (pass != null)
         password.text = pass;
 
       var snackBar = SnackBar(
@@ -91,7 +91,8 @@ class _MyHomePageState extends State<MyHomePage> {
       )
       );
 
-      if (pass.isNotEmpty) ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      if (pass.isNotEmpty && log.isNotEmpty)
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
   }
   @override
@@ -176,8 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         actions: [
 
                           OutlinedButton(onPressed:
-                              () async
-                          {
+                              () async {
 
                             var prefs = EncryptedSharedPreferences(); //await SharedPreferences.getInstance(); //async, must wait
                             //Key is the variable name        //what the user typed
@@ -239,17 +239,4 @@ class _MyHomePageState extends State<MyHomePage> {
   //void loadPreferences() async //background thread
   //    {
 
-    //start loading from disk, not async/but (await) before moving on
-  //  var prefs = EncryptedSharedPreferences();
-
-  //  var log = await prefs.getString("MySavedLogin");
-  //  var pass = await prefs.getString("MySavedPassword");
-    //use the same variable as in setString()
-
-    //put back onto the page:
-  //  if (log != null)
-  //    login.text = log;
-  //  if (pass != null)
-  //    password.text = pass;
-  //}
 }
