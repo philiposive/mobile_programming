@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
+import 'ProfilePage.dart';
+import 'DataRepository.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,8 +13,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       title: 'Flutter Demo',
+
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const MyHomePage(title: 'Flutter Demo Home Page'),
+        '/profilepage': (context) => ProfilePage()
+      },
+
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -31,7 +41,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      //home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -68,6 +78,14 @@ class _MyHomePageState extends State<MyHomePage> {
     login = TextEditingController();
     password = TextEditingController();
 
+    login.addListener(() {
+      //set the repository and save
+    } );
+
+    password.addListener(() {
+      //set the repository and save
+    } );
+
     //void loadPreferences() async //background thread
     //    {
     Future.delayed(Duration.zero, () async {
@@ -95,6 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
   }
+
   @override
   void dispose() {
     super.dispose();
@@ -111,94 +130,109 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme
-            .of(context)
-            .colorScheme
-            .inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+        appBar: AppBar(
+          // TRY THIS: Try changing the color here to a specific color (to
+          // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+          // change color while the other colors stay the same.
+          backgroundColor: Theme
+              .of(context)
+              .colorScheme
+              .inversePrimary,
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text(widget.title),
+        ),
+        body: Center(
+          // Center is a layout widget. It takes a single child and positions it
+          // in the middle of the parent.
+            child: Column(
+              // Column is also a layout widget. It takes a list of children and
+              // arranges them vertically. By default, it sizes itself to fit its
+              // children horizontally, and tries to be as tall as its parent.
+              //
+              // Column has various properties to control how it sizes itself and
+              // how it positions its children. Here we use mainAxisAlignment to
+              // center the children vertically; the main axis here is the vertical
+              // axis because Columns are vertical (the cross axis would be
+              // horizontal).
+              //
+              // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
+              // action in the IDE, or press "p" in the console), to see the
+              // wireframe for each widget.
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
 
-            //Padding(padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+                  //Padding(padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
 
-            //child:Text('You have typed: ${_controller.value.text}', style:TextStyle(fontSize:myFontSize))),
+                  //child:Text('You have typed: ${_controller.value.text}', style:TextStyle(fontSize:myFontSize))),
 
-            //Semantics(child:Image.asset("images/algonquin.jpg", height:100, width:100),
-            //    label:'Algonquin College Logo'),
+                  //Semantics(child:Image.asset("images/algonquin.jpg", height:100, width:100),
+                  //    label:'Algonquin College Logo'),
 
-            Padding(child:
-            TextField(controller: login,
-                decoration:
-                InputDecoration(border: OutlineInputBorder(),
-                    hintText: 'Login')),
-                padding: EdgeInsets.fromLTRB(50, 0, 50, 0)),
+                  Padding(child:
+                  TextField(controller: login,
+                      decoration:
+                      InputDecoration(border: OutlineInputBorder(),
+                          hintText: 'Login')),
+                      padding: EdgeInsets.fromLTRB(50, 0, 50, 0)),
 
-            Padding(child:
-            TextField(controller: password,
-                obscureText: true,
-                decoration:
-                InputDecoration(border: OutlineInputBorder(),
-                    hintText: 'Password')),
-                padding: EdgeInsets.fromLTRB(50, 0, 50, 0)),
+                  Padding(child:
+                  TextField(controller: password,
+                      obscureText: true,
+                      decoration:
+                      InputDecoration(border: OutlineInputBorder(),
+                          hintText: 'Password')),
+                      padding: EdgeInsets.fromLTRB(50, 0, 50, 0)),
 
-            //ElevatedButton(onPressed: buttonClicked, child: Text("Click me")),
-            ElevatedButton(onPressed: () {
-              showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                        title: Text("Attention"),
-                        content: Text(
-                            "Would you like to save your username and password?"),
-                        actions: [
+                  //ElevatedButton(onPressed: buttonClicked, child: Text("Click me")),
+                  ElevatedButton(onPressed: () {
+                    DataRepository.login = login.value.text;
+                    Navigator.pushNamed(context,
+                        "/profilepage"); //string must be in the map above
 
-                          OutlinedButton(onPressed:
-                              () async {
+                  },
 
-                            var prefs = EncryptedSharedPreferences(); //await SharedPreferences.getInstance(); //async, must wait
+                      child: Text('Login', style: TextStyle(
+                          fontSize: myFontSize, color: Colors.blue)))
+
+                ])
+        ));
+  }}
+
+              //showDialog<String>(
+                  //context: context,
+                  //builder: (BuildContext context) {
+                    //return AlertDialog(
+                        //title: Text("Attention"),
+                        //content: Text(
+                            //"Would you like to save your username and password?"),
+                        //actions: [
+
+                          //OutlinedButton(onPressed:
+                              //() async {
+
+                            //var prefs = EncryptedSharedPreferences(); //await SharedPreferences.getInstance(); //async, must wait
                             //Key is the variable name        //what the user typed
 
-                            await prefs.setString(
-                                "MySavedLogin", login.value.text);
-                            await prefs.setString(
-                                "MySavedPassword", password.value.text);
+                            //await prefs.setString(
+                                //"MySavedLogin", login.value.text);
+                            //await prefs.setString(
+                                //"MySavedPassword", password.value.text);
 
-                            Navigator.pop(context); //free any memory from this alert dialog (buttons, text, etc.)
-                          }, child: Text("Yes")),
+                            //Navigator.pop(context); //free any memory from this alert dialog (buttons, text, etc.)
+                          //}, child: Text("Yes")),
 
-                          OutlinedButton(onPressed: () {
-                            var prefs = EncryptedSharedPreferences();
-                            prefs.clear();
+                          //OutlinedButton(onPressed: () {
+                            //var prefs = EncryptedSharedPreferences();
+                            //prefs.clear();
 
-                            Navigator.pop(context);
-                          }, child: Text("No")),
+                            //Navigator.pop(context);
+                          //}, child: Text("No")),
 
-                        ]);
-                  });
+                        //]);
+                  //});
+
+
 
               //setState(() {
               //  var txt = password.value.text;
@@ -212,31 +246,20 @@ class _MyHomePageState extends State<MyHomePage> {
               //    }
               //  });
               //});
-            },
-                child: Text('Login', style: TextStyle(
-                    fontSize: myFontSize, color: Colors.blue))),
 
             //Semantics(child: Padding(padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
             //    child: Image.asset(fileToShow, height: 300, width: 300)),
             //    label: labelToShow),
 
-          ],
-        ),
-      ),
-    );
-  }
-
-  void setNewValue(double num) {
-    setState(() {
-      myFontSize = num;
-    });
-  }
+  //void setNewValue(double num) {
+    //setState(() {
+      //myFontSize = num;
+    //});
+  //}
 
   void buttonClicked() {
 
   }
 
   //void loadPreferences() async //background thread
-  //    {
-
-}
+  //    {}
