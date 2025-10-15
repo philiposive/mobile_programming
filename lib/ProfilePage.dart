@@ -25,6 +25,26 @@ class ProfilePageState extends State<ProfilePage> {
     _phone = TextEditingController();
     _email = TextEditingController();
 
+    Future.delayed(Duration.zero, () async {
+      //start loading from disk, not async/but (await) before moving on
+      var prefs = EncryptedSharedPreferences();
+
+      var fname = await prefs.getString("MySavedFirstName");
+      var lname = await prefs.getString("MySavedLastName");
+      var phone = await prefs.getString("MySavedPhoneNumber");
+      var email = await prefs.getString("MySavedEmail");
+      //use the same variable as in setString()
+
+      //put back onto the page:
+      if (fname != null)
+        _fname.text = fname;
+      if (lname != null)
+        _lname.text = lname;
+      if (phone != null)
+        _phone.text = phone;
+      if (email != null)
+        _email.text = email;
+    });
   }
 
   @override
