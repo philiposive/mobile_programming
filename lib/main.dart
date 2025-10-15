@@ -67,22 +67,22 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var myFontSize = 30.0;
   var isChecked = false;
-  late TextEditingController login;
-  late TextEditingController password;
+  late TextEditingController _login;
+  late TextEditingController _password;
   //var fileToShow = "images/question_mark.png";
   //var labelToShow = "question mark";
 
   @override
   void initState() {
     super.initState();
-    login = TextEditingController();
-    password = TextEditingController();
+    _login = TextEditingController();
+    _password = TextEditingController();
 
-    login.addListener(() {
+    _login.addListener(() {
       //set the repository and save
     } );
 
-    password.addListener(() {
+    _password.addListener(() {
       //set the repository and save
     } );
 
@@ -98,9 +98,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
       //put back onto the page:
       if (log != null)
-        login.text = log;
+        _login.text = log;
       if (pass != null)
-        password.text = pass;
+        _password.text = pass;
 
       var snackBar = SnackBar(
           content: Text('Previous data has been loaded'),
@@ -117,8 +117,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     super.dispose();
-    login.dispose();
-    password.dispose();
+    _login.dispose();
+    _password.dispose();
   }
 
   @override
@@ -134,10 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // TRY THIS: Try changing the color here to a specific color (to
           // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
           // change color while the other colors stay the same.
-          backgroundColor: Theme
-              .of(context)
-              .colorScheme
-              .inversePrimary,
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
@@ -170,14 +167,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   //    label:'Algonquin College Logo'),
 
                   Padding(child:
-                  TextField(controller: login,
+                  TextField(controller: _login,
                       decoration:
                       InputDecoration(border: OutlineInputBorder(),
                           hintText: 'Login')),
                       padding: EdgeInsets.fromLTRB(50, 0, 50, 0)),
 
                   Padding(child:
-                  TextField(controller: password,
+                  TextField(controller: _password,
                       obscureText: true,
                       decoration:
                       InputDecoration(border: OutlineInputBorder(),
@@ -186,9 +183,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
                   //ElevatedButton(onPressed: buttonClicked, child: Text("Click me")),
                   ElevatedButton(onPressed: () {
-                    DataRepository.login = login.value.text;
-                    Navigator.pushNamed(context,
-                        "/profilepage"); //string must be in the map above
+                    DataRepository.login = _login.value.text;
+                    Navigator.pushNamed(context, "/profilepage"); //string must be in the map above
 
                   },
 
