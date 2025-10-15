@@ -257,5 +257,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   }
 
-  //void loadPreferences() async //background thread
-  //    {}
+  void loadPreferences() async //background thread
+      {
+
+
+
+  }
