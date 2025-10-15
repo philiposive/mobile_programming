@@ -69,28 +69,47 @@ class ProfilePageState extends State<ProfilePage> {
                     ),
 
                 ElevatedButton(
-                    onPressed: () async {
+                    onPressed: () {},
+                    child: IconButton(onPressed: () async {
 
-                      var itCan = await canLaunch("tel: ${_phone.value.text}");
+                      var URI = Uri.parse("tel://${_phone.value.text}");
+
+                      var itCan = await launchUrl(URI);
 
                       if(itCan)
 
-                        launch("tel: ${_phone.value.text}");
+                        launchUrl(URI);
 
                       else
 
                         showDialog(context: context,
                             builder: (context) => AlertDialog(
-                              title: Text("The URL is not supported on this device")
+                                title: Text("The URL is not supported on this device")
                             ));
 
-                    },
-                    child: IconButton(onPressed: () {}, icon: Icon(Icons.phone))
+                    }, icon: Icon(Icons.phone))
                 ),
 
                 ElevatedButton(
                     onPressed: () {},
-                    child: IconButton(onPressed: () {}, icon: Icon(Icons.sms))
+                    child: IconButton(onPressed: () async {
+
+                      var URI = Uri.parse("sms://${_phone.value.text}");
+
+                      var itCan = await launchUrl(URI);
+
+                      if(itCan)
+
+                        launchUrl(URI);
+
+                      else
+
+                        showDialog(context: context,
+                            builder: (context) => AlertDialog(
+                                title: Text("The URL is not supported on this device")
+                            ));
+
+                    }, icon: Icon(Icons.sms))
                 ),
 
               ])),
@@ -112,7 +131,24 @@ class ProfilePageState extends State<ProfilePage> {
 
                 ElevatedButton(
                     onPressed: () {},
-                    child: IconButton(onPressed: () {}, icon: Icon(Icons.email)))
+                    child: IconButton(onPressed: () async {
+
+                      var URI = Uri.parse("mailto://${_email.value.text}");
+
+                      var itCan = await launchUrl(URI);
+
+                      if(itCan)
+
+                        launchUrl(URI);
+
+                      else
+
+                        showDialog(context: context,
+                            builder: (context) => AlertDialog(
+                                title: Text("The URL is not supported on this device")
+                            ));
+
+                    }, icon: Icon(Icons.email)))
               ]))
             ])
         )
