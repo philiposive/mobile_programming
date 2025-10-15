@@ -48,6 +48,15 @@ class ProfilePageState extends State<ProfilePage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _fname.dispose();
+    _lname.dispose();
+    _phone.dispose();
+    _email.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text("Profile Page")),
