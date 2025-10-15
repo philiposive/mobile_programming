@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'DataRepository.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget //is an entire page
     {
@@ -11,12 +12,16 @@ class ProfilePage extends StatefulWidget //is an entire page
 //declare what the state of the class is: setState()
 class ProfilePageState extends State<ProfilePage> {
 
+  late TextEditingController _fname;
+  late TextEditingController _lname;
   late TextEditingController _phone;
   late TextEditingController _email;
 
   void initState() {
     super.initState();
 
+    _fname = TextEditingController();
+    _lname = TextEditingController();
     _phone = TextEditingController();
     _email = TextEditingController();
 
@@ -35,7 +40,7 @@ class ProfilePageState extends State<ProfilePage> {
 
               Padding(child:
               TextField(
-                //controller: login,
+                  controller: _fname,
                   decoration:
                   InputDecoration(
                       border: OutlineInputBorder(),
@@ -46,7 +51,7 @@ class ProfilePageState extends State<ProfilePage> {
 
               Padding(child:
               TextField(
-                //controller: login,
+                  controller: _lname,
                   decoration:
                   InputDecoration(
                       border: OutlineInputBorder(),
@@ -154,4 +159,18 @@ class ProfilePageState extends State<ProfilePage> {
         )
     );
   }
+
+  void loadPreferences() async //background thread
+      {
+
+    var prefs = EncryptedSharedPreferences(); //await SharedPreferences.getInstance(); //async, must wait
+    //Key is the variable name        //what the user typed
+
+    await prefs.setString("MySavedFirstName", _fname.value.text);
+    await prefs.setString("MySavedLastName", _lname.value.text);
+    await prefs.setString("MySavedPhoneNumber", _phone.value.text);
+    await prefs.setString("MySavedEmail", _email.value.text);
+
+  }
+
 }

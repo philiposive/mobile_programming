@@ -256,16 +256,3 @@ class _MyHomePageState extends State<MyHomePage> {
   void buttonClicked() {
 
   }
-
-  void loadPreferences() async //background thread
-      {
-
-        var prefs = EncryptedSharedPreferences(); //await SharedPreferences.getInstance(); //async, must wait
-        //Key is the variable name        //what the user typed
-
-        await prefs.setString(
-            "MySavedLogin", login.value.text);
-        await prefs.setString(
-            "MySavedPassword", password.value.text);
-
-  }
