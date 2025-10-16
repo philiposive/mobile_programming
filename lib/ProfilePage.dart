@@ -25,6 +25,19 @@ class ProfilePageState extends State<ProfilePage> {
     _phone = TextEditingController();
     _email = TextEditingController();
 
+    _fname.addListener(() {
+      //set the repository and save
+    } );
+    _lname.addListener(() {
+      //set the repository and save
+    } );
+    _phone.addListener(() {
+      //set the repository and save
+    } );
+    _email.addListener(() {
+      //set the repository and save
+    } );
+
     Future.delayed(Duration.zero, () async {
       //start loading from disk, not async/but (await) before moving on
       var prefs = EncryptedSharedPreferences();
@@ -36,15 +49,26 @@ class ProfilePageState extends State<ProfilePage> {
       //use the same variable as in setString()
 
       //put back onto the page:
-      if (fname != null)
+      //if (fname != null)
         _fname.text = fname;
-      if (lname != null)
+      //if (lname != null)
         _lname.text = lname;
-      if (phone != null)
+      //if (phone != null)
         _phone.text = phone;
-      if (email != null)
+      //if (email != null)
         _email.text = email;
+
+      await prefs.setString("MySavedFirstName", _fname.value.text);
+      await prefs.setString("MySavedLastName", _lname.value.text);
+      await prefs.setString("MySavedPhoneNumber", _phone.value.text);
+      await prefs.setString("MySavedEmail", _email.value.text);
+      setState(() {
+
+      });
     });
+
+
+
   }
 
   @override
