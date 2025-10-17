@@ -4,10 +4,13 @@ import 'ProfilePage.dart';
 import 'DataRepository.dart';
 
 void main() {
+
   runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
+
   const MyApp({super.key});
 
   // This widget is the root of your application.
@@ -15,12 +18,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MaterialApp(
+
       title: 'Flutter Demo',
 
       initialRoute: '/',
+
       routes: {
-        '/': (context) => const MyHomePage(title: 'Flutter Demo Home Page'),
+
+        '/': (context) => const MyHomePage(title: 'Home Page'),
         '/profilepage': (context) => ProfilePage()
+
       },
 
       theme: ThemeData(
@@ -40,6 +47,7 @@ class MyApp extends StatelessWidget {
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+
       ),
       //home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -47,6 +55,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+
   const MyHomePage({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -65,6 +74,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   var myFontSize = 30.0;
   var isChecked = false;
   late TextEditingController _login;
@@ -74,6 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
+
     super.initState();
     _login = TextEditingController();
     _password = TextEditingController();
@@ -89,6 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //void loadPreferences() async //background thread
     //    {
     Future.delayed(Duration.zero, () async {
+
       //start loading from disk, not async/but (await) before moving on
       var prefs = EncryptedSharedPreferences();
 
@@ -102,27 +114,30 @@ class _MyHomePageState extends State<MyHomePage> {
       if (pass != null)
         _password.text = pass;
 
-      var snackBar = SnackBar(
-          content: Text('Previous data has been loaded'),
-          action: SnackBarAction(label: "Ok",
-              onPressed: () { }
-      )
-      );
+      //var snackBar = SnackBar(
+      //    content: Text('Previous data has been loaded'),
+      //    action: SnackBarAction(label: "Ok",
+      //        onPressed: () { }
+      //)
+      //);
 
-      if (pass.isNotEmpty && log.isNotEmpty)
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      //if (pass.isNotEmpty && log.isNotEmpty)
+      //  ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
   }
 
   @override
   void dispose() {
+
     super.dispose();
     _login.dispose();
     _password.dispose();
+
   }
 
   @override
   Widget build(BuildContext context) {
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -130,7 +145,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+
         appBar: AppBar(
+
           // TRY THIS: Try changing the color here to a specific color (to
           // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
           // change color while the other colors stay the same.
@@ -138,11 +155,16 @@ class _MyHomePageState extends State<MyHomePage> {
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
+
         ),
+
         body: Center(
+
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
+
             child: Column(
+
               // Column is also a layout widget. It takes a list of children and
               // arranges them vertically. By default, it sizes itself to fit its
               // children horizontally, and tries to be as tall as its parent.
@@ -156,6 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
               // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
               // action in the IDE, or press "p" in the console), to see the
               // wireframe for each widget.
+
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
 
@@ -183,13 +206,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
                   //ElevatedButton(onPressed: buttonClicked, child: Text("Click me")),
                   ElevatedButton(onPressed: () {
+
                     DataRepository.login = _login.value.text;
                     Navigator.pushNamed(context, "/profilepage"); //string must be in the map above
 
                   },
-
-                      child: Text('Login', style: TextStyle(
-                          fontSize: myFontSize, color: Colors.blue)))
+                      child: Text('Login', style: TextStyle(fontSize: myFontSize, color: Colors.blue)))
 
                 ])
         ));

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'DataRepository.dart';
+import 'main.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget //is an entire page
     {
+
   @override   //abstract from parent:
   State<ProfilePage> createState()  => ProfilePageState();
+
 }
 
 //declare what the state of the class is: setState()
@@ -18,29 +21,34 @@ class ProfilePageState extends State<ProfilePage> {
   late TextEditingController _email;
 
   void initState() {
-    super.initState();
 
+    super.initState();
     _fname = TextEditingController();
     _lname = TextEditingController();
     _phone = TextEditingController();
     _email = TextEditingController();
 
-    _fname.addListener(() {
-      //set the repository and save
-    } );
-    _lname.addListener(() {
-      //set the repository and save
-    } );
-    _phone.addListener(() {
-      //set the repository and save
-    } );
-    _email.addListener(() {
-      //set the repository and save
-    } );
+      _fname.addListener(() {
+        //set the repository and save
+      } );
+      _lname.addListener(() {
+        //set the repository and save
+      } );
+      _phone.addListener(() {
+        //set the repository and save
+      } );
+      _email.addListener(() {
+        //set the repository and save
+      });
 
     Future.delayed(Duration.zero, () async {
       //start loading from disk, not async/but (await) before moving on
       var prefs = EncryptedSharedPreferences();
+
+      await prefs.setString("MySavedFirstName", _fname.value.text);
+      await prefs.setString("MySavedLastName", _lname.value.text);
+      await prefs.setString("MySavedPhoneNumber", _phone.value.text);
+      await prefs.setString("MySavedEmail", _email.value.text);
 
       var fname = await prefs.getString("MySavedFirstName");
       var lname = await prefs.getString("MySavedLastName");
@@ -58,31 +66,26 @@ class ProfilePageState extends State<ProfilePage> {
       //if (email != null)
         _email.text = email;
 
-      await prefs.setString("MySavedFirstName", _fname.value.text);
-      await prefs.setString("MySavedLastName", _lname.value.text);
-      await prefs.setString("MySavedPhoneNumber", _phone.value.text);
-      await prefs.setString("MySavedEmail", _email.value.text);
-      setState(() {
-
-      });
-    });
-
-
+  });
 
   }
 
   @override
   void dispose() {
+
     super.dispose();
     _fname.dispose();
     _lname.dispose();
     _phone.dispose();
     _email.dispose();
+
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+
         appBar: AppBar(title: Text("Profile Page")),
 
         body: Center(child:
@@ -211,19 +214,6 @@ class ProfilePageState extends State<ProfilePage> {
             ])
         )
     );
-  }
-
-  void loadPreferences() async //background thread
-      {
-
-    var prefs = EncryptedSharedPreferences(); //await SharedPreferences.getInstance(); //async, must wait
-    //Key is the variable name        //what the user typed
-
-    await prefs.setString("MySavedFirstName", _fname.value.text);
-    await prefs.setString("MySavedLastName", _lname.value.text);
-    await prefs.setString("MySavedPhoneNumber", _phone.value.text);
-    await prefs.setString("MySavedEmail", _email.value.text);
-
   }
 
 }
