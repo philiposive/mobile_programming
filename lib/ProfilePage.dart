@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'DataRepository.dart';
 import 'main.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -28,27 +29,50 @@ class ProfilePageState extends State<ProfilePage> {
     _phone = TextEditingController();
     _email = TextEditingController();
 
-      _fname.addListener(() {
+    var prefs = EncryptedSharedPreferences();
+
+    _fname.addListener(() async {
         //set the repository and save
-      } );
-      _lname.addListener(() {
+
+        await prefs.setString("MySavedFirstName", _fname.value.text);
+        //await prefs.setString("MySavedLastName", _lname.value.text);
+        //await prefs.setString("MySavedPhoneNumber", _phone.value.text);
+        //await prefs.setString("MySavedEmail", _email.value.text);
+
+      });
+
+    _lname.addListener(() async {
         //set the repository and save
-      } );
-      _phone.addListener(() {
+
+        //await prefs.setString("MySavedFirstName", _fname.value.text);
+        await prefs.setString("MySavedLastName", _lname.value.text);
+        //await prefs.setString("MySavedPhoneNumber", _phone.value.text);
+        //await prefs.setString("MySavedEmail", _email.value.text);
+
+      });
+
+      _phone.addListener(() async {
         //set the repository and save
-      } );
-      _email.addListener(() {
+
+        //await prefs.setString("MySavedFirstName", _fname.value.text);
+        //await prefs.setString("MySavedLastName", _lname.value.text);
+        await prefs.setString("MySavedPhoneNumber", _phone.value.text);
+        //await prefs.setString("MySavedEmail", _email.value.text);
+
+      });
+
+      _email.addListener(() async {
         //set the repository and save
+
+        //await prefs.setString("MySavedFirstName", _fname.value.text);
+        //await prefs.setString("MySavedLastName", _lname.value.text);
+        //await prefs.setString("MySavedPhoneNumber", _phone.value.text);
+        await prefs.setString("MySavedEmail", _email.value.text);
+
       });
 
     Future.delayed(Duration.zero, () async {
       //start loading from disk, not async/but (await) before moving on
-      var prefs = EncryptedSharedPreferences();
-
-      await prefs.setString("MySavedFirstName", _fname.value.text);
-      await prefs.setString("MySavedLastName", _lname.value.text);
-      await prefs.setString("MySavedPhoneNumber", _phone.value.text);
-      await prefs.setString("MySavedEmail", _email.value.text);
 
       var fname = await prefs.getString("MySavedFirstName");
       var lname = await prefs.getString("MySavedLastName");
@@ -133,44 +157,40 @@ class ProfilePageState extends State<ProfilePage> {
                     onPressed: () {},
                     child: IconButton(onPressed: () async {
 
-                      var URI = Uri.parse("tel://${_phone.value.text}");
+                      var itCan = await canLaunch("tel://${_phone.value.text}");
 
-                      var itCan = await launchUrl(URI);
+                      if(itCan) {
+                        launch("tel://${_phone.value.text}");
+                      }
 
-                      if(itCan)
-
-                        launchUrl(URI);
-
-                      else
+                      else {
 
                         showDialog(context: context,
                             builder: (context) => AlertDialog(
                                 title: Text("The URL is not supported on this device")
                             ));
 
-                    }, icon: Icon(Icons.phone))
+                    }}, icon: Icon(Icons.phone))
                 ),
 
                 ElevatedButton(
                     onPressed: () {},
                     child: IconButton(onPressed: () async {
 
-                      var URI = Uri.parse("sms://${_phone.value.text}");
+                      var itCan = await canLaunch("sms://${_phone.value.text}");
 
-                      var itCan = await launchUrl(URI);
+                      if(itCan) {
+                        launch("sms://${_phone.value.text}");
+                      }
 
-                      if(itCan)
-
-                        launchUrl(URI);
-
-                      else
+                      else {
 
                         showDialog(context: context,
                             builder: (context) => AlertDialog(
                                 title: Text("The URL is not supported on this device")
                             ));
 
-                    }, icon: Icon(Icons.sms))
+                    }}, icon: Icon(Icons.sms))
                 ),
 
               ])),
@@ -183,7 +203,7 @@ class ProfilePageState extends State<ProfilePage> {
                 Row(children: [
                 Flexible(child:
                 TextField(
-                  //controller: login,
+                    controller: _email,
                     decoration:
                     InputDecoration(
                         border: OutlineInputBorder(),
@@ -196,20 +216,20 @@ class ProfilePageState extends State<ProfilePage> {
 
                       var URI = Uri.parse("mailto://${_email.value.text}");
 
-                      var itCan = await launchUrl(URI);
+                      var itCan = await canLaunchUrl(URI);
 
-                      if(itCan)
-
+                      if(itCan) {
                         launchUrl(URI);
+                      }
 
-                      else
+                      else {
 
                         showDialog(context: context,
                             builder: (context) => AlertDialog(
                                 title: Text("The URL is not supported on this device")
                             ));
 
-                    }, icon: Icon(Icons.email)))
+                    }}, icon: Icon(Icons.email)))
               ]))
             ])
         )

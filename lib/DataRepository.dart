@@ -3,6 +3,7 @@ import 'main.dart';
 import 'ProfilePage.dart';
 
 class DataRepository{
+
   static String login = "";
   static String password = "";
   //static String _fname = "";
@@ -24,7 +25,6 @@ class DataRepository{
     //await prefs.setString("MySavedLastName", _lname.text);
     //await prefs.setString("MySavedPhoneNumber", _phone.text);
     //await prefs.setString("MySavedEmail", _email.text);
-
 
   }
 }
