@@ -1,11 +1,11 @@
 import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../main.dart';
-import '../AppLocalizations.dart';
-import '../ProjectDatabase.dart';
-import '../models/Boat.dart';
-import '../DAOs/BoatDAO.dart';
+///import '../main.dart';
+///import '../AppLocalizations.dart';
+///import '../ProjectDatabase.dart';
+///import '../models/Boat.dart';
+///import '../DAOs/BoatDAO.dart';
 
 /// A stateful page that manages the "Boats for Sale" feature.
 ///
@@ -19,8 +19,8 @@ import '../DAOs/BoatDAO.dart';
 /// - Basic localization of labels and messages using [AppLocalizations].
 class BoatsForSalePage extends StatefulWidget {
   @override
-  State<CarsForSalePage> createState() {
-    return CarsForSalePageState();
+  State<BoatsForSalePage> createState() {
+    return BoatsForSalePageState();
   }
 }
 
@@ -28,7 +28,7 @@ class BoatsForSalePage extends StatefulWidget {
 /// logic for [BoatsForSalePage].
 class BoatsForSalePageState extends State<BoatsForSalePage> {
   /// Data Access Object (DAO) used to perform CRUD operations on the Boat table.
-  late BoatDAO BoatDAO;
+  late BoatDAO boatDAO;
 
   /// This list is used to build the list view on the left (or full screen on mobile).
   List<Boat> boats = [];
@@ -835,8 +835,8 @@ class _ParsedBoatForm {
   /// Parsed address.
   final String address;
 
-  /// Creates a new [_ParsedCarForm] with all required fields.
-  _ParsedCarForm({
+  /// Creates a new [_ParsedBoatForm] with all required fields.
+  _ParsedBoatForm({
     required this.year,
     required this.length,
     required this.power,
